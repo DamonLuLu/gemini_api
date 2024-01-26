@@ -34,8 +34,9 @@ def gemini_chat(data: dict):
     chat = model.start_chat(history=[])
     response = chat.send_message(prompt)
     text=response.text
-    print(text)
-    return text
+    response = {"content": text}
+    print('response:',response)
+    return json.dumps(response)
 
 
 
