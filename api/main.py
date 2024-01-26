@@ -33,8 +33,9 @@ def gemini_chat(data: dict):
     model = genai.GenerativeModel('gemini-pro')
     chat = model.start_chat(history=[])
     response = chat.send_message(prompt)
-    print(response)
-    return response
+    text=response.text
+    print(text)
+    return text
 
 
 
