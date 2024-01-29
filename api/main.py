@@ -28,15 +28,18 @@ def gemini_chat(data: dict):
     json_post = json.dumps(data)
     json_post_list = json.loads(json_post)
     prompt = json_post_list.get('prompt')
-
-    genai.configure(api_key="AIzaSyDO6L-EuN0Nkd2XlhEMTp9O3ERUSQ2vWNg")
-    model = genai.GenerativeModel('gemini-pro')
-    chat = model.start_chat(history=[])
-    response = chat.send_message(prompt)
-    text=response.text
-    response = {"content": text}
-    print('response:',response)
-    return json.dumps(response)
+    try:
+        genai.configure(api_key="AIzaSyDO6L-EuN0Nkd2XlhEMTp9O3ERUSQ2vWNg")
+        model = genai.GenerativeModel('gemini-pro')
+        chat = model.start_chat(history=[])
+        response = chat.send_message(prompt)
+        text=response.text
+        response = {"content": text}
+        print('response:',response)
+        return json.dumps(response)
+    except Exception as e:
+        print(e)
+        return None
 
 @app.post('/gemini/chat_stream', tags=["API"], summary="GEMINI")
 async def chat_stream(request: Request):
