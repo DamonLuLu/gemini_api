@@ -24,7 +24,7 @@ settings = get_project_settings()
 
 @app.post("/gemini/chat", tags=["API"], summary="GEMINI")
 def gemini_chat(data: dict):
-    print('chat data:',data)
+    #print('chat data:',data)
     json_post = json.dumps(data)
     json_post_list = json.loads(json_post)
     prompt = json_post_list.get('prompt')
@@ -35,7 +35,7 @@ def gemini_chat(data: dict):
         response = chat.send_message(prompt)
         text=response.text
         response = {"content": text}
-        print('response:',response)
+        #print('response:',response)
         return json.dumps(response)
     except Exception as e:
         print(e)
@@ -45,7 +45,7 @@ def gemini_chat(data: dict):
 async def chat_stream(request: Request):
     json_post_raw = await request.json()
     json_post = json.dumps(json_post_raw)
-    print('chat_stream json_post_raw:',json_post)
+    #print('chat_stream json_post_raw:',json_post)
     json_post_list = json.loads(json_post)
     prompt = json_post_list.get('prompt')
 
@@ -62,7 +62,7 @@ async def call_chat_stream(prompt):
     for chunk in response:
         text=chunk.text
         response = {"content": text}
-        print('response:',response)
+        #print('response:',response)
         yield json.dumps(response)
         
 
