@@ -37,7 +37,9 @@ def gemini_chat(data: dict):
         text=response.text
         response = {"content": text}
         #print('response:',response)
-        return json.dumps(response)
+        #return json.dumps(response)
+        return response
+    
     except Exception as e:
         print(e)
         return None
