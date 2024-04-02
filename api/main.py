@@ -38,8 +38,7 @@ def gemini_chat(data: dict):
     
     except Exception as e:
         print(e)
-        time.sleep(5)
-        return gemini_chat(dict)
+        return None
 
 @app.post("/gemini/chat_list", tags=["API"], summary="GEMINI")
 def gemini_chat_list(data_list: list):
