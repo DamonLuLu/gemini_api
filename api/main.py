@@ -27,14 +27,13 @@ settings = get_project_settings()
 def gemini_chat(data: dict):
     prompt = data.get('prompt')
     api_key= data.get('api_key')
-    req_id= data.get('req_id')
     try:
         genai.configure(api_key=api_key)
         model = genai.GenerativeModel('gemini-pro')
         chat = model.start_chat(history=[])
         response = chat.send_message(prompt)
         text=response.text
-        response = {"content": text,"req_id":req_id}
+        response = {"content": text}
         return response
     
     except Exception as e:
