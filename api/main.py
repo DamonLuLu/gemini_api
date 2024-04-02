@@ -10,6 +10,7 @@ from scrapy.utils.project import get_project_settings
 from sse_starlette.sse import EventSourceResponse
 import google.generativeai as genai
 import json
+import time
 
 app = FastAPI()
 app.add_middleware(CORSMiddleware,
@@ -24,25 +25,33 @@ settings = get_project_settings()
 
 @app.post("/gemini/chat", tags=["API"], summary="GEMINI")
 def gemini_chat(data: dict):
-    #print('chat data:',data)
-    json_post = json.dumps(data)
-    json_post_list = json.loads(json_post)
-    prompt = json_post_list.get('prompt')
-    api_key= json_post_list.get('api_key')
+    prompt = data.get('prompt')
+    api_key= data.get('api_key')
+    req_id= data.get('req_id')
     try:
         genai.configure(api_key=api_key)
         model = genai.GenerativeModel('gemini-pro')
         chat = model.start_chat(history=[])
         response = chat.send_message(prompt)
         text=response.text
-        response = {"content": text}
-        #print('response:',response)
-        #return json.dumps(response)
+        response = {"content": text,"req_id":req_id}
         return response
     
     except Exception as e:
         print(e)
-        return None
+        time.sleep(5)
+        return gemini_chat(dict)
+
+@app.post("/gemini/chat_list", tags=["API"], summary="GEMINI")
+def gemini_chat_list(data_list: list):
+    #print('chat data:',data)
+    return_list=[]
+    for data in data_list:
+        response=gemini_chat(data)
+        return_list.append(response)
+    return return_list 
+       
+
 
 @app.post('/gemini/chat_stream', tags=["API"], summary="GEMINI")
 async def chat_stream(request: Request):
