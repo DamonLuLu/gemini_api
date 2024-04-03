@@ -2,7 +2,6 @@
 # @Author   : Eurkon
 # @Date     : 2022/3/8 14:17
 
-import settings
 import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
