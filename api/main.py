@@ -22,13 +22,13 @@ app.add_middleware(CORSMiddleware,
 settings = get_project_settings()
 
 
-genai.configure(api_key="AIzaSyBnFiudLRABuSFclphcBsybgjaSoUfFJCg")
-model = genai.GenerativeModel('gemini-pro')
 @app.post("/gemini/chat", tags=["API"], summary="GEMINI")
 def gemini_chat(data: dict):
     prompt = data.get('prompt')
     api_key= data.get('api_key')
     try:
+        genai.configure(api_key=api_key,transport='rest')
+        model = genai.GenerativeModel('gemini-pro')
         chat = model.start_chat(history=[])
         response = chat.send_message(prompt)
         text=response.text
