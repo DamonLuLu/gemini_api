@@ -36,7 +36,7 @@ def gemini_chat(data: dict):
         return response
     
     except Exception as e:
-        print(e)
+        print("gemini_chat:",e)
         return None
 
 @app.post("/gemini/chat_list", tags=["API"], summary="GEMINI")
