@@ -19,7 +19,8 @@ def gemini_chat(data: dict):
     prompt = data.get('prompt')
     api_key= data.get('api_key')
     try:
-        genai.configure(api_key=api_key,transport='rest')
+        # genai.configure(api_key=api_key,transport='rest')
+        genai.configure(api_key=api_key)
         model = genai.GenerativeModel('gemini-pro')
         chat = model.start_chat(history=[])
         response = chat.send_message(prompt)
