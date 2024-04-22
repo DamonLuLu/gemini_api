@@ -35,7 +35,7 @@ def gemini_chat(data: dict):
         return None
 
 @app.post("/gemini/chat_v2", tags=["API"], summary="GEMINI")
-def gemini_chat(data: dict):
+def gemini_chat_v2(data: dict):
     api_key= data.get('api_key')
     prompt_1 = data.get('prompt_1')
     prompt_2 = data.get('prompt_2')
