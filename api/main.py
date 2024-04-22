@@ -18,6 +18,9 @@ app.add_middleware(CORSMiddleware,
 def gemini_chat(data: dict):
     prompt = data.get('prompt')
     api_key= data.get('api_key')
+    history=data.get('history')
+    if history is None:
+        history=[]
     try:
         # genai.configure(api_key=api_key,transport='rest')
         genai.configure(api_key=api_key)
