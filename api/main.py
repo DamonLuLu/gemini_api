@@ -25,7 +25,7 @@ def gemini_chat(data: dict):
         # genai.configure(api_key=api_key,transport='rest')
         genai.configure(api_key=api_key)
         model = genai.GenerativeModel('gemini-pro')
-        chat = model.start_chat(history=[])
+        chat = model.start_chat(history=history)
         response = chat.send_message(prompt)
         text=response.text
         response = {"content": text}
