@@ -28,8 +28,8 @@ def gemini_chat(data: dict):
         chat = model.start_chat(history=history)
         response = chat.send_message(prompt)
         text=response.text
-        response = {"content": text}
-        return response,chat.history
+        response = {"content": text,"history":chat.history}
+        return response
     except Exception as e:
         print("gemini_chat:",e)
         return None
